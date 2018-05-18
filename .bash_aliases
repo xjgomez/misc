@@ -26,21 +26,34 @@ function trash()
     fi
 }
 
-function safexport
-{
-    export $1=$2
-}
-
 function psg()
 {
     ps -eo comm,pid,ppid,psr,ruid,ruser,euser,lstart,sz,pri,sched,ni,policy,pri,stat,wchan | head -n 1
     ps -eo comm,pid,ppid,psr,ruid,ruser,euser,lstart,sz,pri,sched,ni,policy,pri,stat,wchan | grep $1
 }
 
-alias ..="cd .."
-alias me="cd ~ && ls"
+function safexport
+{
+    export $1=$2
+}
+
+function rets()
+{
+    export LASTFLDR=$CURRFLDR
+    export CURRFLDR=$PWD
+}
+
+function ret()
+{
+    rets
+    cd $LASTFLDR
+}
+
 alias vib="vi $HOME/.bashrc"
 alias refresh="source $HOME/.bashrc"
+alias ..="cd .."
+alias me="rets && cd ~ && ls"
+alias cdr="rets && cd"
 alias cdtrash="cd $HOME/.trash && ls"
 alias cdwork="cd $HOME/.work && ls"
 alias gfind="sudo find / | grep"
