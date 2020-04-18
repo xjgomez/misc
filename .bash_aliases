@@ -1,4 +1,4 @@
-function mv_safe()
+function mkdate()
 {
     DATE_DIR=`date +"%y_%m_%d"`
     mkdir -p $HOME/$2/$DATE_DIR
@@ -12,56 +12,32 @@ function mv_safe()
     fi
 }
 
-function work()
-{
-    if test -n "$1"; then
-        mv_safe $1 .work
-    fi
-}
-
-function trash()
-{
-    if test -n "$1"; then
-        mv_safe $1 .trash
-    fi
-}
-
 function psg()
 {
     ps -eo comm,pid,ppid,psr,ruid,ruser,euser,lstart,sz,pri,sched,ni,policy,pri,stat,wchan | head -n 1
     ps -eo comm,pid,ppid,psr,ruid,ruser,euser,lstart,sz,pri,sched,ni,policy,pri,stat,wchan | grep $1
 }
 
-function safexport
-{
-    export $1=$2
-}
-
-function rets()
-{
-    export LASTFLDR=$CURRFLDR
-    export CURRFLDR=$PWD
-}
-
-function ret()
-{
-    rets
-    cd $LASTFLDR
-}
-
+alias ..="cd .."
+alias me="cd ~ && ls"
 alias vib="vi $HOME/.bashrc"
 alias refresh="source $HOME/.bashrc"
-alias ..="cd .."
-alias me="rets && cd ~ && ls"
-alias cdr="rets && cd"
-alias cdtrash="cd $HOME/.trash && ls"
-alias cdwork="cd $HOME/.work && ls"
-alias gfind="sudo find / | grep"
-alias lfind="sudo find . | grep"
-alias hgrep="history | grep"
+alias setrapid="echo $PWD > ~/.rapid"
+alias rapid="refresh && cd `cat ~/.rapid`"
+alias ls="ls --group-directories-first --color=auto"
+
+#
 alias fgrep="grep -rsn"
 alias fdgrep="lsof | grep"
-alias remake="make clean && clear && make"
-alias soft="sudo ln -s"
+alias hgrep="history | grep"
+alias gfind="sudo find / | grep"
+alias lfind="sudo find . | grep"
+
+#
+alias soft="ln -s"
+alias drivers="lsmod"
 alias affinity="taskset -p"
-alias moul="mount | column -t"
+alias mountlist="mount | column -t"
+alias cores="ulimit -s unlimited && ulimit -c unlimited"
+
+
